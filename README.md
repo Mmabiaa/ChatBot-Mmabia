@@ -2,7 +2,7 @@
 
 Welcome to **Mmabiaa Chatbot**! This chatbot is designed to assist you with various tasks and provide an engaging conversation experience.
 
-![Chatbot](https://github.com/mmabiaa/Chatbot/Pictures/chatBot.png)
+![Chatbot](https://github.com/Mmabiaa/ChatBot-Mmabia/blob/main/Chatbot/Pictures/chatBot.png)
 
 ## 🚀 Features
 
