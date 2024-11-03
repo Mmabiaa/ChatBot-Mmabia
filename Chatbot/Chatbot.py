@@ -45,6 +45,10 @@ pairs = [
         ["Hello!", "Hey there!",]
     ],
     [
+        r'Thank you|thank you',
+        ["You're welcome, feel free to ask more questions"]
+    ],
+    [
         r"what is your name?|What are you called|What is your name",
         ["I am Mmabia, a personal assistant chatbot.",]
     ],
