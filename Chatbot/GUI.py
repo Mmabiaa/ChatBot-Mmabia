@@ -51,14 +51,4 @@ class ChatApp:
         logging.debug('Closing Application.')
         self.root.destroy()
 
-if __name__ == "__main__":
-    try:
-        root = tk.Tk()
-        app = ChatApp(root)
-        root.protocol("WM_DELETE_WINDOW", app.on_closing)  # Properly handle closing
-        # Configure tag styles for user and bot messages
-        app.chat_log.tag_configure("user", justify='right')
-        app.chat_log.tag_configure("bot", justify='left')
-        root.mainloop()
-    except Exception as e:
-        logging.debug(f'Error in main loop: {e}')
+
