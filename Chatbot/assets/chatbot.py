@@ -1,14 +1,12 @@
-import nltk
+from weather import get_weather
+from reminders import set_reminder, set_alarm, reminder_alert, alarm_alert
+import logging, re, wolframalpha, threading, nltk, spacy
 from nltk.chat.util import Chat, reflections
-import spacy
-import requests
-import logging
-import re
+from transformers import pipeline
 from sympy import sympify
 from datetime import datetime, timedelta
-import threading
-import wolframalpha
-from transformers import pipeline
+from nltk.chat.util import Chat, reflections
+
 
 # Load a pre-trained model for question answering
 nlp_qa = pipeline("question-answering")
@@ -181,60 +179,7 @@ def calculate_expression(expression):
     except Exception as e:
         logging.error(f'Error calculating expression: {e}')
         return None
-
-def get_weather(city):
-    try:
-        api_key = "52a82729035ca248e7943b17614948a6"  
-        base_url = "http://api.openweathermap.org/data/2.5/weather?"
-        complete_url = base_url + "appid=" + api_key + "&q=" + city
-        logging.debug(f"Fetching weather for {city} from URL: {complete_url}")
-        response = requests.get(complete_url)
-        if response.status_code == 200:
-            data = response.json()
-            logging.debug(f"Weather data received: {data}")
-            main = data['main']
-            weather = data['weather'][0]
-            return f"The weather in {city} is {weather['description']} with a temperature of {main['temp']}°K."
-        else:
-            logging.error(f"Failed to retrieve weather information. Status code: {response.status_code}")
-            return "I couldn't retrieve the weather information. Please check the city name or try again later."
-    except Exception as e:
-        logging.error(f'Error retrieving weather data: {e}')
-        return "I'm sorry, I couldn't retrieve the weather information. Please try again later."
-
-def set_reminder(time_str):
-    try:
-        reminder_time = datetime.strptime(time_str, '%H:%M')
-        current_time = datetime.now()
-        delta = reminder_time - current_time
-        if delta.total_seconds() < 0:
-            delta += timedelta(days=1)
-
-        threading.Timer(delta.total_seconds(), reminder_alert).start()
-        logging.debug(f"Reminder set for {time_str}")
-    except Exception as e:
-        logging.error(f'Error setting reminder: {e}')
-
-def set_alarm(time_str):
-    try:
-        alarm_time = datetime.strptime(time_str, '%H:%M')
-        current_time = datetime.now()
-        delta = alarm_time - current_time
-        if delta.total_seconds() < 0:
-            delta += timedelta(days=1)
-
-        threading.Timer(delta.total_seconds(), alarm_alert).start()
-        logging.debug(f"Alarm set for {time_str}")
-    except Exception as e:
-        logging.error(f'Error setting alarm: {e}')
-
-def reminder_alert():
-    logging.info('Reminder alert!')
-    print('Reminder alert!')
-
-def alarm_alert():
-    logging.info('Alarm alert!')
-    print('Alarm alert!')
+    
 
 def query_wolfram_alpha(query):
     try:
